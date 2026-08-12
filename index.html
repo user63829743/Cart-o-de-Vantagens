@@ -310,6 +310,200 @@
   .public-success p{color:var(--text-muted); font-size:14px; line-height:1.5;}
   .public-form.hidden{display:none;}
 
+  /* PUBLIC HOME */
+  .public-home{
+    display:none;
+    min-height:100vh;
+    padding:clamp(42px, 6vh, 82px) clamp(28px, 6vw, 96px) 30px;
+  }
+  .public-home.active{display:block;}
+  .home-shell{
+    width:min(100%, 1360px);
+    min-height:calc(100vh - 148px);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:minmax(500px, 1.06fr) minmax(430px, 0.94fr);
+    gap:clamp(56px, 7vw, 120px);
+    align-items:center;
+  }
+  .home-copy{max-width:650px; padding:28px 0 42px;}
+  .home-wordmark{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-bottom:34px;
+    color:var(--text-light);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  }
+  .home-wordmark .mark{
+    width:40px; height:40px; border-radius:12px;
+    display:grid; place-items:center;
+    background:linear-gradient(135deg,#1676D2 0 48%,#D63C4A 52% 100%);
+    color:#fff; font-family:'Fraunces', serif; font-weight:900; font-size:20px;
+    box-shadow:0 10px 26px rgba(22,118,210,0.25);
+  }
+  .home-kicker{
+    color:var(--gold-soft); font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .home-title{
+    font-family:'Fraunces', serif; font-weight:700;
+    font-size:clamp(38px, 6vw, 68px); line-height:1.02;
+    letter-spacing:-0.02em; max-width:680px;
+  }
+  .home-title em{font-style:italic; color:var(--gold);}
+  .home-description{
+    max-width:600px; margin-top:20px;
+    color:var(--text-muted); font-size:17px; line-height:1.65;
+  }
+  .home-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px;}
+  .home-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:48px; padding:12px 18px; border-radius:10px;
+    text-decoration:none; font-family:'Work Sans', sans-serif;
+    font-size:14px; font-weight:700; transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .home-btn:hover{transform:translateY(-2px);}
+  .home-btn.primary{background:var(--gold); color:#12213A;}
+  .home-btn.primary:hover{background:var(--gold-soft);}
+  .home-btn.secondary{background:rgba(47,143,122,0.12); border:1px solid var(--teal); color:#9FE0CC;}
+  .home-btn.secondary:hover{background:rgba(47,143,122,0.24);}
+  .home-btn.outline{background:transparent; border:1px solid var(--line); color:var(--text-muted);}
+  .home-btn.outline:hover{border-color:var(--gold-soft); color:var(--text-light);}
+  .home-note{margin-top:18px; color:var(--text-muted); font-size:12px;}
+  .home-note a{color:var(--gold-soft); text-decoration:none;}
+  .home-note a:hover{text-decoration:underline;}
+  .home-panel{
+    position:relative; overflow:hidden;
+    min-height:500px;
+    padding:clamp(32px, 3.5vw, 52px);
+    display:flex; flex-direction:column; justify-content:center;
+    background:linear-gradient(145deg,rgba(22,37,63,0.95),rgba(14,25,48,0.82));
+    border:1px solid rgba(227,167,60,0.25); border-radius:28px;
+    box-shadow:0 30px 80px -26px rgba(0,0,0,0.7);
+  }
+  .home-panel::before{
+    content:''; position:absolute; width:220px; height:220px; right:-80px; top:-90px;
+    border-radius:50%; background:rgba(214,60,74,0.16); filter:blur(2px);
+  }
+  .home-panel::after{
+    content:''; position:absolute; width:180px; height:180px; left:-90px; bottom:-90px;
+    border-radius:50%; background:rgba(22,118,210,0.14);
+  }
+  .home-panel > *{position:relative; z-index:1;}
+  .home-panel-label{color:var(--gold-soft); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;}
+  .home-benefits{display:grid; gap:16px; margin-top:28px;}
+  .home-benefit{display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid var(--line); border-radius:16px; background:rgba(14,25,48,0.55);}
+  .home-benefit-icon{width:36px; height:36px; display:grid; place-items:center; flex:0 0 36px; border-radius:10px; background:rgba(227,167,60,0.12); color:var(--gold-soft); font-size:17px;}
+  .home-benefit strong{display:block; font-family:'Fraunces', serif; font-size:18px; margin-bottom:4px;}
+  .home-benefit span{display:block; color:var(--text-muted); font-size:13px; line-height:1.5;}
+  .home-footer{width:min(100%, 1360px); margin:0 auto; color:var(--text-muted); font-size:11px; text-align:center;}
+  @media (max-width:1150px){
+    .public-home{padding-left:36px; padding-right:36px;}
+    .home-shell{grid-template-columns:minmax(0, 1.05fr) minmax(360px, 0.85fr); gap:48px;}
+    .home-panel{min-height:460px; padding:34px;}
+  }
+  @media (max-width:820px){
+    .public-home{padding:32px 20px 28px;}
+    .home-shell{min-height:0; grid-template-columns:1fr; gap:28px;}
+    .home-copy{max-width:none; padding:0;}
+    .home-panel{min-height:0; padding:28px;}
+    .home-wordmark{margin-bottom:24px;}
+    .home-title{font-size:clamp(38px, 12vw, 58px);}
+  }
+
+
+  /* ÁREAS PRIVADAS DE SÓCIO E PARCEIRO */
+  .account-page{
+    display:none;
+    min-height:100vh;
+    padding:42px 24px 70px;
+  }
+  .account-page.active{display:block;}
+  .account-shell{width:min(100%,1180px); margin:0 auto;}
+  .account-topbar{
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    padding-bottom:22px; border-bottom:1px solid var(--line); margin-bottom:34px;
+  }
+  .account-brand{display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-light);}
+  .account-brand-mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#1676D2 0 48%,#D63C4A 52% 100%);font-family:'Fraunces',serif;font-size:17px;font-weight:900;color:#fff;}
+  .account-signout{background:transparent;border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--text-muted);cursor:pointer;font:600 12px 'Work Sans',sans-serif;}
+  .account-signout:hover{color:var(--text-light);border-color:var(--gold-soft);}
+  .account-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.9fr);gap:44px;align-items:center;margin-bottom:44px;}
+  .account-kicker{font:12px 'JetBrains Mono',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px;}
+  .account-title{font:700 clamp(36px,5vw,60px)/1.05 'Fraunces',serif;letter-spacing:-.02em;max-width:640px;}
+  .account-title em{font-style:italic;color:var(--gold);}
+  .account-subtitle{margin-top:16px;max-width:620px;color:var(--text-muted);font-size:16px;line-height:1.65;}
+  .member-card-scene{width:100%;max-width:390px;aspect-ratio:1.586/1;perspective:1200px;margin-left:auto;}
+  .member-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1);cursor:pointer;}
+  .member-card-inner.flipped{transform:rotateY(180deg);}
+  .member-card-face{position:absolute;inset:0;border-radius:22px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid rgba(227,167,60,.38);box-shadow:0 26px 70px -28px rgba(0,0,0,.8);background:linear-gradient(135deg,#1A2C4C 0%,#101D38 60%,#0C1730 100%);}
+  .member-card-front{padding:24px;display:flex;flex-direction:column;justify-content:space-between;}
+  .member-card-front::after{content:'';position:absolute;inset:-45% auto -40% -15%;width:62%;background:linear-gradient(120deg,transparent 40%,rgba(227,167,60,.14) 50%,transparent 60%);}
+  .member-card-brand{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;}
+  .member-card-brand .eg{font:900 27px 'Fraunces',serif;color:var(--text-light);letter-spacing:-.06em;}
+  .member-card-brand small{font:10px 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--gold-soft);text-transform:uppercase;}
+  .member-card-chip{width:38px;height:27px;border-radius:6px;background:linear-gradient(135deg,var(--gold-soft),var(--gold));}
+  .member-card-number{position:relative;z-index:1;font:15px 'JetBrains Mono',monospace;letter-spacing:.1em;color:var(--text-light);}
+  .member-card-footer{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:end;gap:14px;}
+  .member-card-holder{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .member-card-kind{font:10px 'JetBrains Mono',monospace;color:var(--gold-soft);}
+  .member-card-back{transform:rotateY(180deg);display:flex;flex-direction:column;padding:18px 0 16px;}
+  .member-card-strip{height:32px;background:#070C16;margin-bottom:18px;}
+  .member-card-back-content{padding:0 22px;display:flex;flex-direction:column;gap:12px;flex:1;}
+  .member-card-sign{height:24px;border-radius:4px;background:repeating-linear-gradient(45deg,rgba(14,25,48,.08) 0 6px,transparent 6px 12px),var(--text-light);}
+  .member-card-barcode{height:30px;border-radius:6px;background-color:#F2ECDD;background-image:repeating-linear-gradient(90deg,#0E1930 0 2px,transparent 2px 5px,#0E1930 5px 6px,transparent 6px 10px,#0E1930 10px 13px,transparent 13px 15px,#0E1930 15px 16px,transparent 16px 20px);}
+  .member-card-fine{font-size:9px;line-height:1.35;color:var(--text-muted);}
+  .card-tap-hint{max-width:390px;margin:12px 0 0 auto;text-align:center;color:var(--text-muted);font:11px 'JetBrains Mono',monospace;}
+  .account-section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px;}
+  .account-section-head h2{font:600 28px 'Fraunces',serif;}
+  .account-section-head p{color:var(--text-muted);font-size:14px;max-width:500px;line-height:1.5;}
+  .benefit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+  .benefit-card{background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;}
+  .benefit-card:hover{border-color:rgba(227,167,60,.38);background:var(--bg-card-hover);}
+  .benefit-card-top{display:flex;align-items:center;gap:11px;}
+  .benefit-icon{width:42px;height:42px;border-radius:12px;background:rgba(227,167,60,.12);display:grid;place-items:center;font-size:22px;flex:0 0 42px;}
+  .benefit-name{font:600 18px/1.2 'Fraunces',serif;}
+  .benefit-category{font:11px 'JetBrains Mono',monospace;letter-spacing:.04em;color:var(--text-muted);text-transform:uppercase;margin-top:3px;}
+  .benefit-discount{font:600 14px/1.45 'Work Sans',sans-serif;color:var(--gold-soft);padding:10px 11px;border:1px dashed rgba(227,167,60,.35);border-radius:8px;background:rgba(227,167,60,.06);}
+  .account-empty{grid-column:1/-1;text-align:center;padding:56px 20px;color:var(--text-muted);background:rgba(22,37,63,.5);border:1px dashed var(--line);border-radius:16px;}
+  .partner-dashboard{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(330px,.9fr);gap:24px;align-items:start;}
+  .partner-panel{background:var(--bg-card);border:1px solid var(--line);border-radius:18px;padding:24px;}
+  .partner-panel h2{font:600 22px 'Fraunces',serif;margin-bottom:16px;}
+  .partner-status-row{display:flex;gap:14px;align-items:center;padding:18px;border-radius:14px;background:rgba(14,25,48,.65);border:1px solid var(--line);}
+  .status-badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 10px;font:700 11px 'JetBrains Mono',monospace;letter-spacing:.05em;white-space:nowrap;}
+  .status-pendente{background:rgba(227,167,60,.15);color:var(--gold-soft);border:1px solid rgba(227,167,60,.35);}
+  .status-ativo{background:rgba(47,143,122,.14);color:#9FE0CC;border:1px solid rgba(47,143,122,.45);}
+  .status-negada{background:rgba(227,106,92,.14);color:#ffaaa0;border:1px solid rgba(227,106,92,.35);}
+  .partner-status-row p{margin-top:5px;color:var(--text-muted);font-size:13px;line-height:1.45;}
+  .profile-list{display:grid;gap:0;margin-top:4px;}
+  .profile-row{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;}
+  .profile-row:last-child{border-bottom:0;}
+  .profile-row b{color:var(--text-muted);font-weight:500;}
+  .profile-row span{color:var(--text-light);word-break:break-word;}
+  .partner-benefit{padding:16px;border:1px dashed rgba(227,167,60,.35);border-radius:12px;background:rgba(227,167,60,.06);color:var(--gold-soft);line-height:1.5;}
+  .request-form textarea{width:100%;min-height:128px;resize:vertical;background:var(--bg-deep);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text-light);font:14px 'Work Sans',sans-serif;outline:none;}
+  .request-form textarea:focus{border-color:var(--gold);}
+  .request-help{margin:8px 0 14px;color:var(--text-muted);font-size:12px;line-height:1.45;}
+  .account-error{display:none;margin-top:12px;color:#ffaaa0;font-size:13px;line-height:1.45;}
+  .account-error.show{display:block;}
+  .user-login-page .public-card{max-width:440px;}
+  .auth-switch{text-align:center;margin-top:16px;color:var(--text-muted);font-size:13px;}
+  .auth-switch a{color:var(--gold-soft);text-decoration:none;}
+  @media (max-width:850px){
+    .account-page{padding:28px 20px 48px;}
+    .account-hero,.partner-dashboard{grid-template-columns:1fr;gap:28px;}
+    .member-card-scene{margin:0 auto;}
+    .card-tap-hint{margin-left:auto;margin-right:auto;}
+  }
+  @media (max-width:520px){
+    .account-topbar{align-items:flex-start;}
+    .account-brand{font-size:10px;}
+    .profile-row{grid-template-columns:1fr;gap:4px;}
+    .account-section-head{display:block;}
+    .account-section-head p{margin-top:8px;}
+  }
+
   /* ADMIN GATE (password screen) */
   .admin-gate{
     display:none;
@@ -474,6 +668,12 @@
   }
   .approve-btn:hover{background:rgba(47,143,122,0.24);}
   .approve-btn:disabled{opacity:0.5; cursor:default;}
+  .reject-btn{background:rgba(227,106,92,0.10);border:1px solid rgba(227,106,92,0.45);color:#ffaaa0;cursor:pointer;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;padding:8px 12px;border-radius:8px;}
+  .reject-btn:hover{background:rgba(227,106,92,0.20);}
+  .status-inline{display:inline-flex;align-items:center;border-radius:999px;padding:5px 8px;font:700 10px 'JetBrains Mono',monospace;letter-spacing:.04em;}
+  .status-inline.pending{color:var(--gold-soft);background:rgba(227,167,60,.12);border:1px solid rgba(227,167,60,.28);}
+  .status-inline.active{color:#9FE0CC;background:rgba(47,143,122,.12);border:1px solid rgba(47,143,122,.35);}
+  .status-inline.denied{color:#ffaaa0;background:rgba(227,106,92,.12);border:1px solid rgba(227,106,92,.35);}
 
   .empty-state{
     text-align:center; padding:60px 20px; color:var(--text-muted);
@@ -518,6 +718,41 @@
 </style>
 </head>
 <body>
+
+<div class="public-home" id="publicHomePage">
+  <div class="home-shell">
+    <section class="home-copy" aria-labelledby="homeTitle">
+      <div class="home-wordmark"><span class="mark" aria-hidden="true">eg</span><span>Grupo EG News</span></div>
+      <div class="home-kicker">Clube de Vantagens</div>
+      <h1 class="home-title" id="homeTitle">Benefícios exclusivos para facilitar o seu <em>dia a dia.</em></h1>
+      <p class="home-description">Bem-vindo ao nosso cartão de vantagens. Descubra benefícios exclusivos e empresas parceiras pensadas para facilitar seu dia a dia.</p>
+      <div class="home-actions">
+        <a class="home-btn primary" href="#cadastro-socio">Entre ou cadastre-se para aproveitar seus benefícios</a>
+        <a class="home-btn secondary" href="#seja-parceiro">Torne-se um parceiro</a>
+      </div>
+      <p class="home-note">Já faz parte da equipe? <a href="#admin">Acessar painel administrativo</a></p>
+    </section>
+
+    <aside class="home-panel" aria-label="Como funciona o clube de vantagens">
+      <div class="home-panel-label">Uma rede feita para você</div>
+      <div class="home-benefits">
+        <div class="home-benefit">
+          <div class="home-benefit-icon" aria-hidden="true">✓</div>
+          <div><strong>Descontos de verdade</strong><span>Condições especiais em empresas parceiras da sua região.</span></div>
+        </div>
+        <div class="home-benefit">
+          <div class="home-benefit-icon" aria-hidden="true">⌂</div>
+          <div><strong>Parceiros locais</strong><span>Supermercados, oficinas, lojas, açougues e muitos outros serviços.</span></div>
+        </div>
+        <div class="home-benefit">
+          <div class="home-benefit-icon" aria-hidden="true">★</div>
+          <div><strong>Um cartão, vários benefícios</strong><span>Cadastre-se para fazer parte do clube e aproveite as vantagens.</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <p class="home-footer">Grupo EG News · Clube de Vantagens</p>
+</div>
 
 <div id="adminRoot">
 <div class="wrap">
@@ -602,6 +837,7 @@
       <button class="tab-btn active" id="tabPartners">parceiros</button>
       <button class="tab-btn" id="tabMembers">sócios</button>
       <button class="tab-btn" id="tabLeads">interessados</button>
+      <button class="tab-btn" id="tabRequests">solicitações</button>
     </div>
     <button class="tab-btn" id="logoutBtn" style="color:#E36A5C;">sair</button>
   </div>
@@ -631,6 +867,13 @@
     </div>
 
     <div id="leadGridContainer" class="member-grid"></div>
+  </div>
+
+  <div class="view" id="viewRequests">
+    <div class="controls">
+      <div class="stat-block"><b id="requestCount">0</b>solicitações de parceiros</div>
+    </div>
+    <div id="requestGridContainer" class="member-grid"></div>
   </div>
 </div>
 
@@ -740,9 +983,22 @@
         <label>Endereço completo</label>
         <input type="text" id="pmAddress" placeholder="Rua, número, bairro, cidade - UF, CEP">
       </div>
-      <div class="modal-actions">
-        <button class="btn-primary" id="submitPublicMember" style="flex:1;">Quero ser sócio</button>
+      <div class="field">
+        <label>E-mail *</label>
+        <input type="email" id="pmEmail" placeholder="voce@exemplo.com" autocomplete="email">
       </div>
+      <div class="field">
+        <label>Crie uma senha *</label>
+        <input type="password" id="pmPassword" placeholder="Mínimo de 6 caracteres" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label>Confirme a senha *</label>
+        <input type="password" id="pmPasswordConfirm" placeholder="Repita a senha" autocomplete="new-password">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="submitPublicMember" style="flex:1;">Criar meu acesso</button>
+      </div>
+      <p class="auth-switch">Já possui cadastro? <a href="#entrar-socio">Entrar como sócio</a></p>
     </div>
     <div class="public-success" id="publicMemberSuccess">
       <div class="icon">🪪</div>
@@ -821,14 +1077,107 @@
         <label>Mensagem (opcional)</label>
         <input type="text" id="plMessage" placeholder="Conte um pouco sobre o desconto que poderia oferecer">
       </div>
-      <div class="modal-actions">
-        <button class="btn-primary" id="submitPublicLead" style="flex:1;">Enviar interesse</button>
+      <div class="field">
+        <label>E-mail de acesso *</label>
+        <input type="email" id="plEmail" placeholder="contato@empresa.com.br" autocomplete="email">
       </div>
+      <div class="field">
+        <label>Crie uma senha *</label>
+        <input type="password" id="plPassword" placeholder="Mínimo de 6 caracteres" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label>Confirme a senha *</label>
+        <input type="password" id="plPasswordConfirm" placeholder="Repita a senha" autocomplete="new-password">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="submitPublicLead" style="flex:1;">Enviar interesse e criar acesso</button>
+      </div>
+      <p class="auth-switch">Já possui cadastro? <a href="#entrar-parceiro">Entrar como parceiro</a></p>
     </div>
     <div class="public-success" id="publicLeadSuccess">
       <div class="icon">🤝</div>
       <h3>Interesse enviado!</h3>
       <p>Recebemos seus dados. Nossa equipe vai entrar em contato para conversar sobre a parceria.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="account-page" id="memberHomePage">
+  <div class="account-shell">
+    <header class="account-topbar">
+      <div class="account-brand"><span class="account-brand-mark">eg</span><span>Clube de Vantagens · Área do Sócio</span></div>
+      <button class="account-signout" id="memberSignout">Sair</button>
+    </header>
+    <div class="account-hero">
+      <section>
+        <div class="account-kicker">Seu cartão de vantagens</div>
+        <h1 class="account-title">Bem-vindo ao seu cartão de vantagens <em>EG.</em></h1>
+        <p class="account-subtitle" id="memberWelcomeText">Aqui você encontra os benefícios exclusivos liberados pelos parceiros do Grupo EG News. Apresente seu cartão e aproveite as condições especiais no dia a dia.</p>
+      </section>
+      <section>
+        <div class="member-card-scene">
+          <div class="member-card-inner" id="memberCardFlip">
+            <div class="member-card-face member-card-front">
+              <div class="member-card-brand"><div><div class="eg">eg</div><small>Grupo EG News</small></div><div class="member-card-chip"></div></div>
+              <div class="member-card-number" id="memberCardNumber">•••• •••• •••• 0000</div>
+              <div class="member-card-footer"><span class="member-card-holder" id="memberCardName">Sócio do clube</span><span class="member-card-kind">EG+</span></div>
+            </div>
+            <div class="member-card-face member-card-back">
+              <div class="member-card-strip"></div>
+              <div class="member-card-back-content">
+                <div class="member-card-sign"></div>
+                <div class="member-card-barcode"></div>
+                <p class="member-card-fine">Cartão pessoal e intransferível. Apresente este cartão nos parceiros ativos para garantir suas vantagens.</p>
+                <p class="member-card-fine">Grupo EG News · clube@grupoegnews.com.br</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="card-tap-hint">toque no cartão para ver o verso</p>
+      </section>
+    </div>
+    <section>
+      <div class="account-section-head"><div><h2>Seus benefícios</h2><p>Empresas parceiras com ofertas disponíveis para você agora.</p></div></div>
+      <div class="benefit-grid" id="memberBenefitsGrid"></div>
+    </section>
+  </div>
+</div>
+
+<div class="account-page" id="partnerHomePage">
+  <div class="account-shell">
+    <header class="account-topbar">
+      <div class="account-brand"><span class="account-brand-mark">eg</span><span>Clube de Vantagens · Área do Parceiro</span></div>
+      <button class="account-signout" id="partnerSignout">Sair</button>
+    </header>
+    <section class="account-hero" style="margin-bottom:34px;">
+      <div>
+        <div class="account-kicker">Sua parceria com o Grupo EG News</div>
+        <h1 class="account-title">Olá, <em id="partnerWelcomeName">parceiro.</em></h1>
+        <p class="account-subtitle">Acompanhe a situação do seu cadastro, confira o perfil enviado e fale com nossa equipe sobre atualizações na parceria.</p>
+      </div>
+      <div class="partner-status-row"><span class="status-badge status-pendente" id="partnerStatusBadge">PENDENTE</span><div><strong>Status da parceria</strong><p id="partnerStatusText">Seu cadastro está em análise pela nossa equipe.</p></div></div>
+    </section>
+    <div class="partner-dashboard">
+      <section class="partner-panel"><h2>Perfil da empresa</h2><div class="profile-list" id="partnerProfileList"></div></section>
+      <div style="display:grid;gap:24px;">
+        <section class="partner-panel"><h2>Benefício oferecido</h2><div class="partner-benefit" id="partnerBenefitText">Quando a parceria for aprovada, o benefício divulgado aos sócios aparecerá aqui.</div></section>
+        <section class="partner-panel request-form"><h2>Editar ou sugerir atualização</h2><p class="request-help">Envie uma sugestão de alteração de dados ou benefício. A equipe administrativa avaliará a solicitação antes de publicar mudanças.</p><textarea id="partnerRequestMessage" placeholder="Descreva a atualização que deseja solicitar..."></textarea><button class="btn-primary" id="submitPartnerRequest" style="width:100%;margin-top:14px;">Enviar solicitação</button><div class="account-error" id="partnerRequestError"></div></section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="public-page user-login-page" id="userLoginPage">
+  <div class="public-card">
+    <div class="public-form">
+      <h2 id="userLoginTitle">Entrar no Clube</h2>
+      <p class="public-sub" id="userLoginSubtitle">Use o e-mail e a senha cadastrados para acessar sua área.</p>
+      <div class="field"><label>E-mail</label><input type="email" id="userLoginEmail" placeholder="voce@exemplo.com" autocomplete="email"></div>
+      <div class="field"><label>Senha</label><input type="password" id="userLoginPassword" placeholder="••••••••" autocomplete="current-password"></div>
+      <div class="gate-error" id="userLoginError">Não foi possível entrar. Confira seus dados e tente novamente.</div>
+      <div class="modal-actions"><button class="btn-primary" id="userLoginSubmit" style="flex:1;">Entrar</button></div>
+      <p class="auth-switch" id="userLoginSwitch"></p>
     </div>
   </div>
 </div>
@@ -867,7 +1216,7 @@ const SUPABASE_URL = 'https://vdungunfrfhqslfajtaq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_UAu19v9lPAXEXg3CaPNaFw_MJJODJyJ';
 
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: { persistSession: false } // login precisa ser refeito a cada vez que a página é aberta
+  auth: { persistSession: true } // mantém o acesso de sócios e parceiros entre visitas
 });
 
 const CATEGORY_ICONS = {
@@ -895,7 +1244,7 @@ async function loadPartners(){
     if(error) throw error;
     partners = (data || []).map(p => ({
       id: p.id, name: p.name, category: p.category,
-      discount: p.discount, contact: p.contact, logo: p.logo
+      discount: p.discount, contact: p.contact, logo: p.logo, status: p.status || 'ATIVO'
     }));
   }catch(e){
     console.error('Erro ao carregar parceiros', e);
@@ -1233,21 +1582,32 @@ document.getElementById('confirmAddMember').addEventListener('click', async ()=>
   await loadMembers();
 });
 
-/* ===== TAB: INTERESSADOS (LEADS) ===== */
+/* ===== ABAS ADMINISTRATIVAS ===== */
 const tabLeads = document.getElementById('tabLeads');
 const viewLeads = document.getElementById('viewLeads');
+const tabRequests = document.getElementById('tabRequests');
+const viewRequests = document.getElementById('viewRequests');
 
-tabLeads.addEventListener('click', ()=>{
-  tabLeads.classList.add('active');
-  tabPartners.classList.remove('active');
-  tabMembers.classList.remove('active');
-  viewLeads.classList.add('active');
-  viewPartners.classList.remove('active');
-  viewMembers.classList.remove('active');
-  renderLeads();
-});
-tabPartners.addEventListener('click', ()=>{ tabLeads.classList.remove('active'); viewLeads.classList.remove('active'); });
-tabMembers.addEventListener('click', ()=>{ tabLeads.classList.remove('active'); viewLeads.classList.remove('active'); });
+function selectAdminView(viewName){
+  const config = {
+    partners: [tabPartners, viewPartners],
+    members: [tabMembers, viewMembers],
+    leads: [tabLeads, viewLeads],
+    requests: [tabRequests, viewRequests]
+  };
+  Object.entries(config).forEach(([name, [tab, view]])=>{
+    tab.classList.toggle('active', name === viewName);
+    view.classList.toggle('active', name === viewName);
+  });
+  if(viewName === 'members') renderMembers();
+  if(viewName === 'leads') renderLeads();
+  if(viewName === 'requests') renderPartnerRequests();
+}
+
+tabPartners.addEventListener('click', ()=>selectAdminView('partners'));
+tabMembers.addEventListener('click', ()=>selectAdminView('members'));
+tabLeads.addEventListener('click', ()=>selectAdminView('leads'));
+tabRequests.addEventListener('click', ()=>selectAdminView('requests'));
 
 let leads = [];
 let leadSearchTerm = '';
@@ -1258,7 +1618,8 @@ function mapLeadRow(l){
     category: l.category, phone: l.phone, message: l.message,
     cnpj: l.cnpj, razaoSocial: l.razao_social, nomeFantasia: l.nome_fantasia,
     logradouro: l.logradouro_numero, bairro: l.bairro,
-    localidade: l.localidade, uf: l.uf, cep: l.cep
+    localidade: l.localidade, uf: l.uf, cep: l.cep,
+    email: l.email, status: l.status || 'PENDENTE', authUserId: l.auth_user_id
   };
 }
 
@@ -1276,103 +1637,91 @@ async function loadLeads(){
   }
 }
 
+function statusClass(status){
+  return status === 'ATIVO' ? 'active' : status === 'NEGADA' ? 'denied' : 'pending';
+}
+
 function renderLeads(){
   const container = document.getElementById('leadGridContainer');
   if(!container) return;
   const filtered = leads.filter(l=>{
     const term = leadSearchTerm.toLowerCase();
-    return l.business.toLowerCase().includes(term) || l.responsible.toLowerCase().includes(term);
+    return (l.business || '').toLowerCase().includes(term) || (l.responsible || '').toLowerCase().includes(term);
   });
 
   if(filtered.length === 0){
-    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🤝</div>Nenhum interessado por enquanto. Compartilhe o link acima!</div>`;
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">🤝</div>Nenhum cadastro de parceiro encontrado.</div>`;
     return;
   }
 
-  container.innerHTML = filtered.map(l => `
-    <div class="member-card">
-      <div class="member-top">
-        <div class="member-name">${escapeHtml(l.nomeFantasia || l.business)}</div>
-        <div class="member-number">${escapeHtml(l.category)}</div>
-      </div>
-      <div class="member-details">
-        <b>Razão Social:</b> ${escapeHtml(l.razaoSocial) || '—'}<br>
-        <b>CNPJ:</b> ${escapeHtml(l.cnpj) || '—'}<br>
-        <b>Responsável:</b> ${escapeHtml(l.responsible)}<br>
-        <b>Telefone:</b> ${escapeHtml(l.phone) || '—'}<br>
-        <b>Endereço:</b> ${escapeHtml(l.logradouro) || '—'}, ${escapeHtml(l.bairro) || '—'}<br>
-        ${escapeHtml(l.localidade) || '—'} - ${escapeHtml(l.uf) || '—'}, CEP ${escapeHtml(l.cep) || '—'}<br>
-        <b>Mensagem:</b> ${escapeHtml(l.message) || '—'}
-      </div>
-      <div class="member-actions" style="justify-content:space-between;">
-        <button class="approve-btn" data-id="${l.id}">✓ aprovar parceria</button>
-        <button class="del-btn" data-id="${l.id}">remover</button>
-      </div>
-    </div>
-  `).join('');
+  container.innerHTML = filtered.map(l => {
+    const canDecide = l.status === 'PENDENTE';
+    const actions = canDecide
+      ? `<button class="approve-btn" data-id="${l.id}">✓ aprovar</button><button class="reject-btn" data-id="${l.id}">negar</button>`
+      : `<span class="status-inline ${statusClass(l.status)}">${escapeHtml(l.status)}</span>`;
+    return `
+      <div class="member-card">
+        <div class="member-top">
+          <div class="member-name">${escapeHtml(l.nomeFantasia || l.business || 'Empresa')}</div>
+          <div class="member-number">${escapeHtml(l.category || '—')}</div>
+        </div>
+        <div class="member-details">
+          <b>Status:</b> ${escapeHtml(l.status)}<br>
+          <b>Razão Social:</b> ${escapeHtml(l.razaoSocial) || '—'}<br>
+          <b>CNPJ:</b> ${escapeHtml(l.cnpj) || '—'}<br>
+          <b>Responsável:</b> ${escapeHtml(l.responsible) || '—'}<br>
+          <b>Telefone:</b> ${escapeHtml(l.phone) || '—'}<br>
+          <b>E-mail:</b> ${escapeHtml(l.email) || '—'}<br>
+          <b>Endereço:</b> ${escapeHtml(l.logradouro) || '—'}, ${escapeHtml(l.bairro) || '—'}<br>
+          ${escapeHtml(l.localidade) || '—'} - ${escapeHtml(l.uf) || '—'}, CEP ${escapeHtml(l.cep) || '—'}<br>
+          <b>Mensagem:</b> ${escapeHtml(l.message) || '—'}
+        </div>
+        <div class="member-actions" style="justify-content:space-between;gap:8px;">${actions}</div>
+      </div>`;
+  }).join('');
 
   container.querySelectorAll('.approve-btn').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const id = btn.dataset.id;
       const lead = leads.find(l => String(l.id) === String(id));
       if(!lead) return;
-
       const discount = prompt(`Qual desconto/vantagem a ${lead.nomeFantasia || lead.business} vai oferecer aos sócios?`, '');
-      if(discount === null) return; // cancelado
+      if(discount === null) return;
       if(!discount.trim()){
-        alert('É preciso informar o desconto para aprovar a parceria.');
+        alert('É preciso informar o benefício para aprovar a parceria.');
         return;
       }
-
       btn.disabled = true;
       btn.textContent = 'aprovando...';
-
       try{
-        const { error: insertError } = await supabaseClient.from('partners').insert({
-          name: lead.nomeFantasia || lead.business,
-          category: lead.category,
-          discount: discount.trim(),
-          contact: lead.phone,
-          cnpj: lead.cnpj,
-          razao_social: lead.razaoSocial,
-          nome_fantasia: lead.nomeFantasia,
-          logradouro_numero: lead.logradouro,
-          bairro: lead.bairro,
-          localidade: lead.localidade,
-          uf: lead.uf,
-          cep: lead.cep
-        });
-        if(insertError) throw insertError;
-
-        const { error: deleteError } = await supabaseClient.from('partner_leads').delete().eq('id', id);
-        if(deleteError) throw deleteError;
+        const { error } = await supabaseClient.rpc('approve_partner_lead', { p_lead_id: id, p_discount: discount.trim() });
+        if(error) throw error;
+        await Promise.all([loadLeads(), loadPartners()]);
+        renderLeads();
       }catch(e){
         console.error('Erro ao aprovar parceria', e);
-        alert('Não foi possível aprovar. Verifique se você está logado.');
+        alert('Não foi possível aprovar. Confirme se a migração SQL foi executada e se você está logado como administrador.');
         btn.disabled = false;
-        btn.textContent = '✓ aprovar parceria';
-        return;
+        btn.textContent = '✓ aprovar';
       }
-
-      await loadLeads();
-      renderLeads();
-      await loadPartners();
     });
   });
 
-  container.querySelectorAll('.del-btn').forEach(btn=>{
+  container.querySelectorAll('.reject-btn').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const id = btn.dataset.id;
+      if(!confirm('Deseja negar esta parceria? O cadastro será mantido com status NEGADA.')) return;
+      btn.disabled = true;
       try{
-        const { error } = await supabaseClient.from('partner_leads').delete().eq('id', id);
+        const { error } = await supabaseClient.rpc('reject_partner_lead', { p_lead_id: id });
         if(error) throw error;
+        await loadLeads();
+        renderLeads();
       }catch(e){
-        console.error('Erro ao remover interessado', e);
-        alert('Não foi possível remover. Verifique se você está logado.');
-        return;
+        console.error('Erro ao negar parceria', e);
+        alert('Não foi possível atualizar o status. Confirme se a migração SQL foi executada.');
+        btn.disabled = false;
       }
-      await loadLeads();
-      renderLeads();
     });
   });
 }
@@ -1381,6 +1730,59 @@ document.getElementById('leadSearchInput').addEventListener('input', (e)=>{
   leadSearchTerm = e.target.value;
   renderLeads();
 });
+
+
+/* ===== SOLICITAÇÕES DE PARCEIROS ===== */
+let partnerRequests = [];
+
+async function loadPartnerRequests(){
+  try{
+    const { data, error } = await supabaseClient
+      .from('partner_change_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if(error) throw error;
+    partnerRequests = data || [];
+  }catch(e){
+    console.error('Erro ao carregar solicitações', e);
+    partnerRequests = [];
+  }
+  renderPartnerRequests();
+}
+
+function renderPartnerRequests(){
+  const container = document.getElementById('requestGridContainer');
+  if(!container) return;
+  const count = document.getElementById('requestCount');
+  if(count) count.textContent = partnerRequests.length;
+  if(partnerRequests.length === 0){
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="icon">✉️</div>Nenhuma solicitação de atualização por enquanto.</div>`;
+    return;
+  }
+  container.innerHTML = partnerRequests.map(request=>{
+    const partner = partners.find(p => String(p.id) === String(request.partner_id));
+    const lead = leads.find(l => String(l.authUserId) === String(request.auth_user_id));
+    const label = partner?.name || lead?.nomeFantasia || lead?.business || 'Parceiro aguardando aprovação';
+    const status = request.status || 'PENDENTE';
+    const actions = status === 'PENDENTE'
+      ? `<button class="approve-btn request-decision" data-id="${request.id}" data-status="APROVADA">marcar aprovada</button><button class="reject-btn request-decision" data-id="${request.id}" data-status="RECUSADA">recusar</button>`
+      : `<span class="status-inline ${status === 'APROVADA' ? 'active' : 'denied'}">${escapeHtml(status)}</span>`;
+    return `<div class="member-card"><div class="member-top"><div class="member-name">${escapeHtml(label)}</div><div class="member-number">${escapeHtml(status)}</div></div><div class="member-details"><b>Solicitação:</b><br>${escapeHtml(request.message)}<br><br><b>Enviada em:</b> ${new Date(request.created_at).toLocaleString('pt-BR')}</div><div class="member-actions" style="justify-content:space-between;gap:8px;">${actions}</div></div>`;
+  }).join('');
+  container.querySelectorAll('.request-decision').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      btn.disabled = true;
+      const { error } = await supabaseClient.from('partner_change_requests').update({ status: btn.dataset.status }).eq('id', btn.dataset.id);
+      if(error){
+        console.error('Erro ao atualizar solicitação', error);
+        alert('Não foi possível atualizar a solicitação.');
+        btn.disabled = false;
+        return;
+      }
+      await loadPartnerRequests();
+    });
+  });
+}
 
 /* ===== SHARE LINKS ===== */
 function baseUrl(){
@@ -1431,35 +1833,70 @@ setupCopyButton('copyPartnerLink', 'linkPartnerInput');
 
 /* ===== PUBLIC PAGES ROUTING ===== */
 const adminRoot = document.getElementById('adminRoot');
+const publicHomePage = document.getElementById('publicHomePage');
 const publicMemberPage = document.getElementById('publicMemberPage');
 const publicPartnerPage = document.getElementById('publicPartnerPage');
+const memberHomePage = document.getElementById('memberHomePage');
+const partnerHomePage = document.getElementById('partnerHomePage');
+const userLoginPage = document.getElementById('userLoginPage');
 const adminGate = document.getElementById('adminGate');
 
-const ADMIN_EMAIL_HINT = null; // apenas para referência visual, não usado na lógica
 let adminUnlocked = false;
+let activeUserProfile = null;
+let loginMode = 'member';
 
-function routeByHash(){
-  const hash = location.hash;
+function hideAllPages(){
   adminRoot.style.display = 'none';
   adminGate.classList.remove('active');
+  publicHomePage.classList.remove('active');
   publicMemberPage.classList.remove('active');
   publicPartnerPage.classList.remove('active');
+  memberHomePage.classList.remove('active');
+  partnerHomePage.classList.remove('active');
+  userLoginPage.classList.remove('active');
+}
 
-  if(hash === '#cadastro-socio'){
+async function routeByHash(){
+  const hash = location.hash;
+  hideAllPages();
+
+  if(hash === '' || hash === '#' || hash === '#home'){
+    publicHomePage.classList.add('active');
+  }else if(hash === '#cadastro-socio'){
     publicMemberPage.classList.add('active');
   }else if(hash === '#seja-parceiro'){
     publicPartnerPage.classList.add('active');
-  }else if(adminUnlocked){
-    adminRoot.style.display = 'block';
+  }else if(hash === '#entrar-socio' || hash === '#entrar-parceiro'){
+    loginMode = hash === '#entrar-parceiro' ? 'partner' : 'member';
+    configureUserLogin();
+    userLoginPage.classList.add('active');
+  }else if(hash === '#socio'){
+    if(await requireAccountType('member')){
+      memberHomePage.classList.add('active');
+      await loadMemberHome();
+    }
+  }else if(hash === '#parceiro'){
+    if(await requireAccountType('partner')){
+      partnerHomePage.classList.add('active');
+      await loadPartnerHome();
+    }
+  }else if(hash === '#admin'){
+    if(await requireAdmin()){
+      adminRoot.style.display = 'block';
+      await loadAdminData();
+    }else{
+      adminGate.classList.add('active');
+    }
   }else{
-    adminGate.classList.add('active');
+    publicHomePage.classList.add('active');
   }
 }
 window.addEventListener('hashchange', routeByHash);
 
 async function loadAdminData(){
-  await Promise.all([loadPartners(), loadMembers(), loadLeads()]);
+  await Promise.all([loadPartners(), loadMembers(), loadLeads(), loadPartnerRequests()]);
   renderLeads();
+  renderPartnerRequests();
 }
 
 document.getElementById('gateSubmit').addEventListener('click', async ()=>{
@@ -1473,14 +1910,18 @@ document.getElementById('gateSubmit').addEventListener('click', async ()=>{
   try{
     const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if(error) throw error;
+    activeUserProfile = await getCurrentProfile(data.user);
+    if(!activeUserProfile || activeUserProfile.account_type !== 'admin'){
+      await supabaseClient.auth.signOut();
+      throw new Error('Esta conta não possui acesso administrativo.');
+    }
     adminUnlocked = true;
+    location.hash = '#admin';
     document.getElementById('gateError').classList.remove('show');
     document.getElementById('gateEmail').value = '';
     document.getElementById('gatePassword').value = '';
-    routeByHash();
-    await loadAdminData();
   }catch(e){
-    console.error('Erro de login', e);
+    console.error('Erro de login administrativo', e);
     document.getElementById('gateError').classList.add('show');
   }
 
@@ -1491,14 +1932,44 @@ document.getElementById('gatePassword').addEventListener('keydown', (e)=>{
   if(e.key === 'Enter') document.getElementById('gateSubmit').click();
 });
 
-document.getElementById('logoutBtn').addEventListener('click', async ()=>{
+async function signOutClub(){
   try{ await supabaseClient.auth.signOut(); }catch(e){ console.error(e); }
   adminUnlocked = false;
-  location.hash = '';
-  routeByHash();
-});
+  activeUserProfile = null;
+  location.hash = '#home';
+}
+document.getElementById('logoutBtn').addEventListener('click', signOutClub);
+document.getElementById('memberSignout').addEventListener('click', signOutClub);
+document.getElementById('partnerSignout').addEventListener('click', signOutClub);
 
-/* ===== PUBLIC MEMBER FORM SUBMIT ===== */
+/* ===== CADASTRO E ACESSO DE SÓCIOS ===== */
+function validatePassword(password, confirmation){
+  if(password.length < 6) return 'A senha precisa ter ao menos 6 caracteres.';
+  if(password !== confirmation) return 'A confirmação de senha não coincide.';
+  return null;
+}
+
+async function signUpClubAccount(email, password, accountType, registration){
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: { data: { account_type: accountType, registration } }
+  });
+  if(error) throw error;
+  if(!data.user) throw new Error('Não foi possível criar a conta.');
+  return data;
+}
+
+function showEmailConfirmation(type){
+  const isPartner = type === 'partner';
+  const form = document.getElementById(isPartner ? 'publicPartnerForm' : 'publicMemberForm');
+  const success = document.getElementById(isPartner ? 'publicLeadSuccess' : 'publicMemberSuccess');
+  success.querySelector('h3').textContent = 'Confirme seu e-mail';
+  success.querySelector('p').textContent = 'Enviamos uma mensagem de confirmação para seu e-mail. Depois de confirmar, volte aqui e entre com os dados cadastrados para acessar sua área.';
+  form.classList.add('hidden');
+  success.classList.add('show');
+}
+
 document.getElementById('submitPublicMember').addEventListener('click', async ()=>{
   const name = document.getElementById('pmName').value.trim();
   const rg = document.getElementById('pmRg').value.trim();
@@ -1506,28 +1977,40 @@ document.getElementById('submitPublicMember').addEventListener('click', async ()
   const birthDate = document.getElementById('pmBirth').value;
   const phone = document.getElementById('pmPhone').value.trim();
   const address = document.getElementById('pmAddress').value.trim();
+  const email = document.getElementById('pmEmail').value.trim().toLowerCase();
+  const password = document.getElementById('pmPassword').value;
+  const passwordConfirm = document.getElementById('pmPasswordConfirm').value;
+  const btn = document.getElementById('submitPublicMember');
 
-  if(!name || !cpf){
-    alert('Preencha ao menos o nome completo e o CPF.');
+  if(!name || !cpf || !email){
+    alert('Preencha nome completo, CPF e e-mail.');
     return;
   }
+  const passwordError = validatePassword(password, passwordConfirm);
+  if(passwordError){ alert(passwordError); return; }
 
+  btn.disabled = true;
+  btn.textContent = 'criando acesso...';
   try{
-    const { error } = await supabaseClient.from('members').insert({
-      name, rg, cpf, birth_date: birthDate || null, phone, address
+    const account = await signUpClubAccount(email, password, 'member', {
+      name, rg, cpf, birth_date: birthDate || '', phone, address
     });
-    if(error) throw error;
+    if(!account.session){
+      showEmailConfirmation('member');
+      return;
+    }
+    activeUserProfile = await getCurrentProfile(account.user);
+    location.hash = '#socio';
   }catch(e){
-    console.error('Erro ao enviar cadastro público', e);
-    alert('Não foi possível enviar o cadastro. Tente novamente em instantes.');
-    return;
+    console.error('Erro ao cadastrar sócio', e);
+    alert(e.message || 'Não foi possível criar o seu acesso. Tente novamente em instantes.');
+  }finally{
+    btn.disabled = false;
+    btn.textContent = 'Criar meu acesso';
   }
-
-  document.getElementById('publicMemberForm').classList.add('hidden');
-  document.getElementById('publicMemberSuccess').classList.add('show');
 });
 
-/* ===== PUBLIC PARTNER LEAD FORM SUBMIT ===== */
+/* ===== CADASTRO E ACESSO DE PARCEIROS ===== */
 document.getElementById('submitPublicLead').addEventListener('click', async ()=>{
   const cnpj = document.getElementById('plCnpj').value.trim();
   const razaoSocial = document.getElementById('plRazaoSocial').value.trim();
@@ -1538,33 +2021,224 @@ document.getElementById('submitPublicLead').addEventListener('click', async ()=>
   const logradouro = document.getElementById('plLogradouro').value.trim();
   const bairro = document.getElementById('plBairro').value.trim();
   const localidade = document.getElementById('plLocalidade').value.trim();
-  const uf = document.getElementById('plUf').value.trim();
+  const uf = document.getElementById('plUf').value.trim().toUpperCase();
   const cep = document.getElementById('plCep').value.trim();
   const phone = document.getElementById('plPhone').value.trim();
   const message = document.getElementById('plMessage').value.trim();
+  const email = document.getElementById('plEmail').value.trim().toLowerCase();
+  const password = document.getElementById('plPassword').value;
+  const passwordConfirm = document.getElementById('plPasswordConfirm').value;
+  const btn = document.getElementById('submitPublicLead');
 
   if(!cnpj || !razaoSocial || !nomeFantasia || !category || !responsible || !business ||
-     !logradouro || !bairro || !localidade || !uf || !cep || !phone){
+     !logradouro || !bairro || !localidade || !uf || !cep || !phone || !email){
     alert('Preencha todos os campos obrigatórios (marcados com *).');
     return;
   }
+  const passwordError = validatePassword(password, passwordConfirm);
+  if(passwordError){ alert(passwordError); return; }
 
+  btn.disabled = true;
+  btn.textContent = 'criando acesso...';
   try{
-    const { error } = await supabaseClient.from('partner_leads').insert({
+    const account = await signUpClubAccount(email, password, 'partner', {
       responsible, business, category, phone, message,
       cnpj, razao_social: razaoSocial, nome_fantasia: nomeFantasia,
       logradouro_numero: logradouro, bairro, localidade, uf, cep
     });
-    if(error) throw error;
+    if(!account.session){
+      showEmailConfirmation('partner');
+      return;
+    }
+    activeUserProfile = await getCurrentProfile(account.user);
+    location.hash = '#parceiro';
   }catch(e){
-    console.error('Erro ao enviar interesse de parceria', e);
-    alert('Não foi possível enviar. Tente novamente em instantes.');
+    console.error('Erro ao cadastrar parceiro', e);
+    alert(e.message || 'Não foi possível enviar o interesse. Tente novamente em instantes.');
+  }finally{
+    btn.disabled = false;
+    btn.textContent = 'Enviar interesse e criar acesso';
+  }
+});
+
+async function getCurrentProfile(user){
+  if(!user) return null;
+  const { data, error } = await supabaseClient
+    .from('user_profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
+  if(error) throw error;
+  return data || null;
+}
+
+async function requireAccountType(accountType){
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if(!user){
+    location.hash = accountType === 'partner' ? '#entrar-parceiro' : '#entrar-socio';
+    return false;
+  }
+  activeUserProfile = await getCurrentProfile(user);
+  if(!activeUserProfile || activeUserProfile.account_type !== accountType){
+    await supabaseClient.auth.signOut();
+    alert('Esta conta não possui acesso a esta área.');
+    location.hash = '#home';
+    return false;
+  }
+  return true;
+}
+
+async function requireAdmin(){
+  if(!adminUnlocked) return false;
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if(!user) return false;
+  activeUserProfile = await getCurrentProfile(user);
+  if(!activeUserProfile || activeUserProfile.account_type !== 'admin'){
+    adminUnlocked = false;
+    await supabaseClient.auth.signOut();
+    return false;
+  }
+  return true;
+}
+
+function configureUserLogin(){
+  const isPartner = loginMode === 'partner';
+  document.getElementById('userLoginTitle').textContent = isPartner ? 'Entrar como parceiro' : 'Entrar como sócio';
+  document.getElementById('userLoginSubtitle').textContent = isPartner
+    ? 'Acesse sua área para acompanhar o status e as informações da parceria.'
+    : 'Acesse seu cartão de vantagens e confira os benefícios disponíveis.';
+  document.getElementById('userLoginSwitch').innerHTML = isPartner
+    ? 'Ainda não enviou seu interesse? <a href="#seja-parceiro">Torne-se um parceiro</a>'
+    : 'Ainda não possui cadastro? <a href="#cadastro-socio">Cadastre-se como sócio</a>';
+  document.getElementById('userLoginError').classList.remove('show');
+}
+
+document.getElementById('userLoginSubmit').addEventListener('click', async ()=>{
+  const email = document.getElementById('userLoginEmail').value.trim();
+  const password = document.getElementById('userLoginPassword').value;
+  const btn = document.getElementById('userLoginSubmit');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'entrando...';
+  try{
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if(error) throw error;
+    activeUserProfile = await getCurrentProfile(data.user);
+    if(!activeUserProfile || activeUserProfile.account_type !== loginMode){
+      await supabaseClient.auth.signOut();
+      throw new Error('Esta conta não corresponde a esta área.');
+    }
+    location.hash = loginMode === 'partner' ? '#parceiro' : '#socio';
+  }catch(e){
+    console.error('Erro de login de usuário', e);
+    document.getElementById('userLoginError').textContent = e.message || 'Não foi possível entrar. Confira seus dados e tente novamente.';
+    document.getElementById('userLoginError').classList.add('show');
+  }finally{
+    btn.disabled = false;
+    btn.textContent = original;
+  }
+});
+document.getElementById('userLoginPassword').addEventListener('keydown', e=>{
+  if(e.key === 'Enter') document.getElementById('userLoginSubmit').click();
+});
+
+document.getElementById('memberCardFlip').addEventListener('click', ()=>{
+  document.getElementById('memberCardFlip').classList.toggle('flipped');
+});
+
+async function loadMemberHome(){
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if(!user) return;
+  const { data: member, error: memberError } = await supabaseClient
+    .from('members').select('*').eq('auth_user_id', user.id).maybeSingle();
+  if(memberError) console.error('Erro ao carregar perfil de sócio', memberError);
+  const displayName = member?.name || user.email || 'Sócio';
+  document.getElementById('memberWelcomeText').textContent = `${displayName.split(' ')[0]}, aqui você encontra os benefícios exclusivos liberados pelos parceiros do Grupo EG News. Apresente seu cartão e aproveite as condições especiais no dia a dia.`;
+  document.getElementById('memberCardName').textContent = displayName;
+  document.getElementById('memberCardNumber').textContent = member?.member_number ? `•••• •••• •••• ${String(member.member_number).padStart(4, '0')}` : '•••• •••• •••• EG+';
+
+  const { data: activePartners, error } = await supabaseClient
+    .from('partners').select('id,name,category,discount,contact,logo,status')
+    .eq('status', 'ATIVO').order('created_at', { ascending: true });
+  const grid = document.getElementById('memberBenefitsGrid');
+  if(error){
+    console.error('Erro ao carregar benefícios', error);
+    grid.innerHTML = '<div class="account-empty">Não foi possível carregar os benefícios agora. Tente novamente em instantes.</div>';
     return;
   }
+  if(!activePartners || activePartners.length === 0){
+    grid.innerHTML = '<div class="account-empty">Em breve teremos benefícios exclusivos disponíveis para você.</div>';
+    return;
+  }
+  grid.innerHTML = activePartners.map(p=>`
+    <article class="benefit-card">
+      <div class="benefit-card-top"><div class="benefit-icon">${p.logo ? `<img src="${p.logo}" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:9px;padding:4px;">` : (CATEGORY_ICONS[p.category] || '🏬')}</div><div><div class="benefit-name">${escapeHtml(p.name)}</div><div class="benefit-category">${escapeHtml(p.category || 'Parceiro')}</div></div></div>
+      <div class="benefit-discount">${escapeHtml(p.discount || 'Benefício exclusivo para sócios')}</div>
+    </article>`).join('');
+}
 
-  document.getElementById('publicPartnerForm').classList.add('hidden');
-  document.getElementById('publicLeadSuccess').classList.add('show');
+function renderProfileRows(items){
+  return items.map(([label, value])=>`<div class="profile-row"><b>${escapeHtml(label)}</b><span>${escapeHtml(value || '—')}</span></div>`).join('');
+}
 
+async function loadPartnerHome(){
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if(!user) return;
+  const { data: lead, error: leadError } = await supabaseClient
+    .from('partner_leads').select('*').eq('auth_user_id', user.id).maybeSingle();
+  if(leadError || !lead){
+    console.error('Erro ao carregar cadastro de parceiro', leadError);
+    document.getElementById('partnerProfileList').innerHTML = '<div class="account-empty">Não localizamos o perfil da empresa para esta conta.</div>';
+    return;
+  }
+  const { data: partner } = await supabaseClient
+    .from('partners').select('*').eq('lead_id', String(lead.id)).maybeSingle();
+  const status = partner?.status === 'ATIVO' ? 'ATIVO' : (lead.status || 'PENDENTE');
+  const badge = document.getElementById('partnerStatusBadge');
+  badge.textContent = status;
+  badge.className = `status-badge status-${status.toLowerCase()}`;
+  const messages = {
+    PENDENTE: 'Seu cadastro foi recebido e está em análise pela nossa equipe. Entraremos em contato assim que houver uma decisão.',
+    ATIVO: 'Sua parceria está ativa. Os sócios do Clube de Vantagens já podem visualizar o benefício oferecido pela sua empresa.',
+    NEGADA: 'No momento, não foi possível aprovar a parceria. Você pode consultar seus dados e enviar uma solicitação para falar com nossa equipe.'
+  };
+  document.getElementById('partnerStatusText').textContent = messages[status] || messages.PENDENTE;
+  document.getElementById('partnerWelcomeName').textContent = lead.nome_fantasia || lead.business || 'parceiro';
+  document.getElementById('partnerProfileList').innerHTML = renderProfileRows([
+    ['Empresa', lead.nome_fantasia || lead.business], ['Razão social', lead.razao_social], ['CNPJ', lead.cnpj],
+    ['Categoria', lead.category], ['Responsável', lead.responsible], ['Telefone', lead.phone],
+    ['E-mail', lead.email || user.email], ['Endereço', `${lead.logradouro_numero || ''}${lead.bairro ? ` · ${lead.bairro}` : ''}${lead.localidade ? ` · ${lead.localidade}/${lead.uf || ''}` : ''}${lead.cep ? ` · CEP ${lead.cep}` : ''}`]
+  ]);
+  document.getElementById('partnerBenefitText').textContent = status === 'ATIVO' && partner?.discount
+    ? partner.discount
+    : 'Quando a parceria for aprovada, o benefício divulgado aos sócios aparecerá aqui.';
+}
+
+document.getElementById('submitPartnerRequest').addEventListener('click', async ()=>{
+  const message = document.getElementById('partnerRequestMessage').value.trim();
+  const errorBox = document.getElementById('partnerRequestError');
+  errorBox.classList.remove('show');
+  errorBox.style.color = '';
+  if(message.length < 5){
+    errorBox.textContent = 'Descreva sua solicitação com pelo menos 5 caracteres.';
+    errorBox.classList.add('show');
+    return;
+  }
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  const { data: lead } = await supabaseClient.from('partner_leads').select('id').eq('auth_user_id', user.id).maybeSingle();
+  const { data: partner } = lead ? await supabaseClient.from('partners').select('id').eq('lead_id', String(lead.id)).maybeSingle() : { data: null };
+  const { error } = await supabaseClient.from('partner_change_requests').insert({
+    partner_id: partner?.id || null, auth_user_id: user.id, message
+  });
+  if(error){
+    errorBox.textContent = 'Não foi possível enviar sua solicitação. Tente novamente em instantes.';
+    errorBox.classList.add('show');
+    return;
+  }
+  document.getElementById('partnerRequestMessage').value = '';
+  errorBox.style.color = '#9FE0CC';
+  errorBox.textContent = 'Solicitação enviada para a equipe responsável.';
+  errorBox.classList.add('show');
 });
 
 routeByHash();
