@@ -1188,14 +1188,10 @@
     <h2>Painel administrativo</h2>
     <p class="public-sub">Área restrita. Faça login para consultar os dados de sócios, parceiros e interessados.</p>
     <div class="field">
-      <label>E-mail</label>
-      <input type="email" id="gateEmail" placeholder="admin@grupoegnews.com.br">
-    </div>
-    <div class="field">
       <label>Senha</label>
       <input type="password" id="gatePassword" placeholder="••••••••">
     </div>
-    <div class="gate-error" id="gateError">E-mail ou senha incorretos. Tente novamente.</div>
+    <div class="gate-error" id="gateError">Senha incorreta. Tente novamente.</div>
     <div class="modal-actions">
       <button class="btn-primary" id="gateSubmit" style="flex:1;">Entrar</button>
     </div>
@@ -1209,8 +1205,8 @@
    - "Project URL"      -> SUPABASE_URL
    - "anon public" key  -> SUPABASE_ANON_KEY
    Essas duas informações são seguras para ficar no código do
-   navegador (são públicas por design) — a proteção de verdade
-   vem das regras de segurança (RLS) configuradas no banco.
+   navegador (são públicas por design). O painel administrativo usa
+   uma rota protegida no Vercel; a senha ADMIN_PASSWORD nunca fica no HTML.
 */
 const SUPABASE_URL = 'https://vdungunfrfhqslfajtaq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_UAu19v9lPAXEXg3CaPNaFw_MJJODJyJ';
@@ -1235,21 +1231,41 @@ let partners = [];
 let activeCategory = 'Todos';
 let searchTerm = '';
 
-async function loadPartners(){
+function applyAdminData(data){
+  partners = (data.partners || []).map(p => ({
+    id: p.id, name: p.name, category: p.category,
+    discount: p.discount, contact: p.contact, logo: p.logo, status: p.status || 'ATIVO'
+  }));
+  members = (data.members || []).map(m => ({
+    id: m.id, memberNumber: m.member_number, name: m.name, rg: m.rg, cpf: m.cpf,
+    birthDate: m.birth_date, phone: m.phone, address: m.address
+  }));
+  leads = (data.leads || []).map(l => ({
+    id: l.id, responsible: l.responsible, business: l.business,
+    category: l.category, phone: l.phone, message: l.message,
+    cnpj: l.cnpj, razaoSocial: l.razao_social, nomeFantasia: l.nome_fantasia,
+    logradouro: l.logradouro_numero, bairro: l.bairro,
+    localidade: l.localidade, uf: l.uf, cep: l.cep,
+    email: l.email, status: l.status || 'PENDENTE', authUserId: l.auth_user_id
+  }));
+  partnerRequests = data.requests || [];
+}
+
+async function refreshAdminCache(){
   try{
-    const { data, error } = await supabaseClient
-      .from('partners')
-      .select('*')
-      .order('created_at', { ascending: true });
-    if(error) throw error;
-    partners = (data || []).map(p => ({
-      id: p.id, name: p.name, category: p.category,
-      discount: p.discount, contact: p.contact, logo: p.logo, status: p.status || 'ATIVO'
-    }));
+    applyAdminData(await adminData('loadAll'));
   }catch(e){
-    console.error('Erro ao carregar parceiros', e);
+    console.error('Erro ao carregar dados administrativos', e);
     partners = [];
+    members = [];
+    leads = [];
+    partnerRequests = [];
+    throw e;
   }
+}
+
+async function loadPartners(){
+  try{ await refreshAdminCache(); }catch(e){}
   render();
 }
 
@@ -1336,8 +1352,7 @@ function render(){
     btn.addEventListener('click', async ()=>{
       const id = btn.dataset.id;
       try{
-        const { error } = await supabaseClient.from('partners').delete().eq('id', id);
-        if(error) throw error;
+        await adminData('deletePartner', { id });
       }catch(e){
         console.error('Erro ao remover parceiro', e);
         alert('Não foi possível remover. Verifique se você está logado.');
@@ -1401,10 +1416,7 @@ document.getElementById('confirmAdd').addEventListener('click', async ()=>{
   }
 
   try{
-    const { error } = await supabaseClient.from('partners').insert({
-      name, category, discount, contact, logo
-    });
-    if(error) throw error;
+    await adminData('createPartner', { name, category, discount, contact, logo });
   }catch(e){
     console.error('Erro ao adicionar parceiro', e);
     alert('Não foi possível adicionar. Verifique se você está logado.');
@@ -1459,17 +1471,7 @@ function mapMemberRow(m){
 }
 
 async function loadMembers(){
-  try{
-    const { data, error } = await supabaseClient
-      .from('members')
-      .select('*')
-      .order('created_at', { ascending: true });
-    if(error) throw error;
-    members = (data || []).map(mapMemberRow);
-  }catch(e){
-    console.error('Erro ao carregar sócios (é preciso estar logado)', e);
-    members = [];
-  }
+  try{ await refreshAdminCache(); }catch(e){}
   renderMembers();
 }
 
@@ -1519,8 +1521,7 @@ function renderMembers(){
     btn.addEventListener('click', async ()=>{
       const id = btn.dataset.id;
       try{
-        const { error } = await supabaseClient.from('members').delete().eq('id', id);
-        if(error) throw error;
+        await adminData('deleteMember', { id });
       }catch(e){
         console.error('Erro ao remover sócio', e);
         alert('Não foi possível remover. Verifique se você está logado.');
@@ -1561,10 +1562,7 @@ document.getElementById('confirmAddMember').addEventListener('click', async ()=>
   }
 
   try{
-    const { error } = await supabaseClient.from('members').insert({
-      name, rg, cpf, birth_date: birthDate || null, phone, address
-    });
-    if(error) throw error;
+    await adminData('createMember', { name, rg, cpf, birth_date: birthDate || null, phone, address });
   }catch(e){
     console.error('Erro ao cadastrar sócio', e);
     alert('Não foi possível cadastrar o sócio.');
@@ -1624,17 +1622,7 @@ function mapLeadRow(l){
 }
 
 async function loadLeads(){
-  try{
-    const { data, error } = await supabaseClient
-      .from('partner_leads')
-      .select('*')
-      .order('created_at', { ascending: true });
-    if(error) throw error;
-    leads = (data || []).map(mapLeadRow);
-  }catch(e){
-    console.error('Erro ao carregar interessados (é preciso estar logado)', e);
-    leads = [];
-  }
+  try{ await refreshAdminCache(); }catch(e){}
 }
 
 function statusClass(status){
@@ -1694,8 +1682,7 @@ function renderLeads(){
       btn.disabled = true;
       btn.textContent = 'aprovando...';
       try{
-        const { error } = await supabaseClient.rpc('approve_partner_lead', { p_lead_id: id, p_discount: discount.trim() });
-        if(error) throw error;
+        await adminData('approveLead', { id, discount: discount.trim() });
         await Promise.all([loadLeads(), loadPartners()]);
         renderLeads();
       }catch(e){
@@ -1713,8 +1700,7 @@ function renderLeads(){
       if(!confirm('Deseja negar esta parceria? O cadastro será mantido com status NEGADA.')) return;
       btn.disabled = true;
       try{
-        const { error } = await supabaseClient.rpc('reject_partner_lead', { p_lead_id: id });
-        if(error) throw error;
+        await adminData('rejectLead', { id });
         await loadLeads();
         renderLeads();
       }catch(e){
@@ -1736,17 +1722,7 @@ document.getElementById('leadSearchInput').addEventListener('input', (e)=>{
 let partnerRequests = [];
 
 async function loadPartnerRequests(){
-  try{
-    const { data, error } = await supabaseClient
-      .from('partner_change_requests')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if(error) throw error;
-    partnerRequests = data || [];
-  }catch(e){
-    console.error('Erro ao carregar solicitações', e);
-    partnerRequests = [];
-  }
+  try{ await refreshAdminCache(); }catch(e){}
   renderPartnerRequests();
 }
 
@@ -1772,7 +1748,8 @@ function renderPartnerRequests(){
   container.querySelectorAll('.request-decision').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       btn.disabled = true;
-      const { error } = await supabaseClient.from('partner_change_requests').update({ status: btn.dataset.status }).eq('id', btn.dataset.id);
+      let error = null;
+      try{ await adminData('updateRequest', { id: btn.dataset.id, status: btn.dataset.status }); }catch(e){ error = e; }
       if(error){
         console.error('Erro ao atualizar solicitação', error);
         alert('Não foi possível atualizar a solicitação.');
@@ -1841,9 +1818,37 @@ const partnerHomePage = document.getElementById('partnerHomePage');
 const userLoginPage = document.getElementById('userLoginPage');
 const adminGate = document.getElementById('adminGate');
 
-let adminUnlocked = false;
+let adminUnlocked = sessionStorage.getItem('club_admin_session') === 'active';
 let activeUserProfile = null;
 let loginMode = 'member';
+
+async function adminApi(action, payload = {}) {
+  const response = await fetch('/api/admin-login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+    body: JSON.stringify({ action, ...payload })
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok || !body.ok) {
+    throw new Error(body.error || 'Não foi possível validar o acesso administrativo.');
+  }
+  return body;
+}
+
+async function adminData(action, payload = {}) {
+  const response = await fetch('/api/admin-data', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+    body: JSON.stringify({ action, ...payload })
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok || !body.ok) {
+    throw new Error(body.error || 'Não foi possível concluir a operação administrativa.');
+  }
+  return body;
+}
 
 function hideAllPages(){
   adminRoot.style.display = 'none';
@@ -1894,13 +1899,18 @@ async function routeByHash(){
 window.addEventListener('hashchange', routeByHash);
 
 async function loadAdminData(){
-  await Promise.all([loadPartners(), loadMembers(), loadLeads(), loadPartnerRequests()]);
-  renderLeads();
-  renderPartnerRequests();
+  try{
+    await refreshAdminCache();
+    render();
+    renderMembers();
+    renderLeads();
+    renderPartnerRequests();
+  }catch(e){
+    alert(e.message || 'Não foi possível carregar os dados administrativos.');
+  }
 }
 
 document.getElementById('gateSubmit').addEventListener('click', async ()=>{
-  const email = document.getElementById('gateEmail').value.trim();
   const password = document.getElementById('gatePassword').value;
   const btn = document.getElementById('gateSubmit');
   const originalLabel = btn.textContent;
@@ -1908,20 +1918,15 @@ document.getElementById('gateSubmit').addEventListener('click', async ()=>{
   btn.disabled = true;
 
   try{
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if(error) throw error;
-    activeUserProfile = await getCurrentProfile(data.user);
-    if(!activeUserProfile || activeUserProfile.account_type !== 'admin'){
-      await supabaseClient.auth.signOut();
-      throw new Error('Esta conta não possui acesso administrativo.');
-    }
+    await adminApi('login', { password });
     adminUnlocked = true;
+    sessionStorage.setItem('club_admin_session', 'active');
     location.hash = '#admin';
     document.getElementById('gateError').classList.remove('show');
-    document.getElementById('gateEmail').value = '';
     document.getElementById('gatePassword').value = '';
   }catch(e){
     console.error('Erro de login administrativo', e);
+    document.getElementById('gateError').textContent = e.message || 'Senha incorreta. Tente novamente.';
     document.getElementById('gateError').classList.add('show');
   }
 
@@ -1933,8 +1938,15 @@ document.getElementById('gatePassword').addEventListener('keydown', (e)=>{
 });
 
 async function signOutClub(){
+  if(adminUnlocked){
+    try{ await adminApi('logout'); }catch(e){ console.error(e); }
+    adminUnlocked = false;
+    sessionStorage.removeItem('club_admin_session');
+    activeUserProfile = null;
+    location.hash = '#home';
+    return;
+  }
   try{ await supabaseClient.auth.signOut(); }catch(e){ console.error(e); }
-  adminUnlocked = false;
   activeUserProfile = null;
   location.hash = '#home';
 }
@@ -2090,15 +2102,14 @@ async function requireAccountType(accountType){
 
 async function requireAdmin(){
   if(!adminUnlocked) return false;
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if(!user) return false;
-  activeUserProfile = await getCurrentProfile(user);
-  if(!activeUserProfile || activeUserProfile.account_type !== 'admin'){
+  try{
+    await adminApi('session');
+    return true;
+  }catch(e){
     adminUnlocked = false;
-    await supabaseClient.auth.signOut();
+    sessionStorage.removeItem('club_admin_session');
     return false;
   }
-  return true;
 }
 
 function configureUserLogin(){
