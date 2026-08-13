@@ -508,6 +508,14 @@
     .profile-row{grid-template-columns:1fr;gap:4px;}
     .account-section-head{display:block;}
     .account-section-head p{margin-top:8px;}
+
+    /* No mobile, alterna as faces sem depender de preserve-3d/backface do navegador. */
+    .member-card-scene{perspective:none;}
+    .member-card-inner{transform:none !important;transform-style:flat;}
+    .member-card-face{transform:none !important;backface-visibility:visible;-webkit-backface-visibility:visible;}
+    .member-card-back{display:none;}
+    .member-card-inner.flipped .member-card-front{display:none;}
+    .member-card-inner.flipped .member-card-back{display:flex;}
   }
 
   /* ADMIN GATE (password screen) */
