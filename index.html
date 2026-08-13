@@ -306,6 +306,8 @@
   .public-success{display:none; text-align:center; padding:10px 0 4px;}
   .public-success.show{display:block;}
   .public-success .icon{font-size:38px; margin-bottom:14px;}
+  .public-success .success-mark{width:44px;height:44px;border:2px solid var(--gold);border-radius:50%;margin:0 auto 16px;position:relative;box-sizing:border-box;}
+  .public-success .success-mark::after{content:'';position:absolute;width:10px;height:20px;border:solid var(--gold);border-width:0 3px 3px 0;left:14px;top:8px;transform:rotate(45deg);}
   .public-success h3{font-family:'Fraunces', serif; font-size:19px; margin-bottom:8px;}
   .public-success p{color:var(--text-muted); font-size:14px; line-height:1.5;}
   .public-form.hidden{display:none;}
@@ -1005,7 +1007,7 @@
       <p class="auth-switch">Já possui cadastro? <a href="#entrar-socio">Entrar como sócio</a></p>
     </div>
     <div class="public-success" id="publicMemberSuccess">
-      <div class="icon">🪪</div>
+      <div class="success-mark" aria-hidden="true"></div>
       <h3>Cadastro recebido!</h3>
       <p>Seu cadastro de sócio foi enviado com sucesso. Em breve você poderá aproveitar os descontos dos parceiros do clube.</p>
     </div>
@@ -1099,7 +1101,7 @@
       <p class="auth-switch">Já possui cadastro? <a href="#entrar-parceiro">Entrar como parceiro</a></p>
     </div>
     <div class="public-success" id="publicLeadSuccess">
-      <div class="icon">🤝</div>
+      <div class="success-mark" aria-hidden="true"></div>
       <h3>Interesse enviado!</h3>
       <p>Recebemos seus dados. Nossa equipe vai entrar em contato para conversar sobre a parceria.</p>
     </div>
