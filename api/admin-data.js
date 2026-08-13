@@ -61,13 +61,6 @@ async function loadAll() {
   return { partners: partners || [], members: members || [], leads: leads || [], requests: requests || [] };
 }
 
-async function rpc(name, payload) {
-  return supabaseRequest(`rpc/${name}`, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
-}
-
 module.exports = async (request, response) => {
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST');
@@ -128,16 +121,59 @@ module.exports = async (request, response) => {
         await supabaseRequest(`members?id=eq.${encodeURIComponent(normaliseId(payload.id))}`, { method: 'DELETE' });
         break;
 
-      case 'approveLead':
-        await rpc('approve_partner_lead', {
-          p_lead_id: normaliseId(payload.id),
-          p_discount: String(payload.discount || '').trim(),
-        });
-        break;
+      case 'approveLead': {
+        const leadId = normaliseId(payload.id);
+        const discount = String(payload.discount || '').trim();
+        if (!discount) throw new Error('É obrigatório informar o benefício oferecido.');
 
-      case 'rejectLead':
-        await rpc('reject_partner_lead', { p_lead_id: normaliseId(payload.id) });
+        const leadRows = await supabaseRequest(
+          `partner_leads?id=eq.${encodeURIComponent(leadId)}&select=*`,
+          { method: 'GET', prefer: '' }
+        );
+        const lead = Array.isArray(leadRows) ? leadRows[0] : null;
+        if (!lead) throw new Error('Cadastro de interessado não encontrado.');
+
+        const partnerRows = await supabaseRequest('partners?on_conflict=lead_id', {
+          method: 'POST',
+          prefer: 'resolution=merge-duplicates,return=representation',
+          body: JSON.stringify({
+            lead_id: String(lead.id),
+            owner_auth_id: lead.auth_user_id || null,
+            name: String(lead.nome_fantasia || lead.business || '').trim(),
+            category: String(lead.category || 'Outros').trim(),
+            discount,
+            contact: String(lead.phone || '').trim(),
+            cnpj: String(lead.cnpj || '').trim() || null,
+            razao_social: String(lead.razao_social || '').trim() || null,
+            nome_fantasia: String(lead.nome_fantasia || '').trim() || null,
+            logradouro_numero: String(lead.logradouro_numero || '').trim() || null,
+            bairro: String(lead.bairro || '').trim() || null,
+            localidade: String(lead.localidade || '').trim() || null,
+            uf: String(lead.uf || '').trim() || null,
+            cep: String(lead.cep || '').trim() || null,
+            status: 'ATIVO',
+          }),
+        });
+
+        await supabaseRequest(`partner_leads?id=eq.${encodeURIComponent(leadId)}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: 'ATIVO' }),
+        });
+        result = { partner: Array.isArray(partnerRows) ? partnerRows[0] : partnerRows };
         break;
+      }
+
+      case 'rejectLead': {
+        const leadId = normaliseId(payload.id);
+        const rows = await supabaseRequest(`partner_leads?id=eq.${encodeURIComponent(leadId)}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: 'NEGADA' }),
+        });
+        if (!Array.isArray(rows) || rows.length === 0) {
+          throw new Error('Cadastro de interessado não encontrado.');
+        }
+        break;
+      }
 
       case 'updateRequest': {
         const status = String(payload.status || '');
