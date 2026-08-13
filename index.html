@@ -1998,7 +1998,7 @@ async function signUpClubAccount(email, password, accountType, registration){
     password,
     options: {
       data: { account_type: accountType, registration },
-      emailRedirectTo: `${window.location.origin}/?email_verified=1`
+      emailRedirectTo: `${window.location.origin}/?email_verified=1&type=${encodeURIComponent(accountType)}`
     }
   });
   if(error) throw error;
@@ -2018,6 +2018,8 @@ function showEmailConfirmation(type){
 
 async function showEmailVerifiedPage(){
   let accountType = 'member';
+  const requestedType = new URLSearchParams(location.search).get('type');
+  if(requestedType === 'partner') accountType = 'partner';
   try{
     const { data: { user } } = await supabaseClient.auth.getUser();
     if(user?.user_metadata?.account_type === 'partner') accountType = 'partner';
