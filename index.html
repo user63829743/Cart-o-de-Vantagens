@@ -1055,6 +1055,10 @@
           <option>Outros</option>
         </select>
       </div>
+      <div class="field" id="plOtherCategoryField" style="display:none;">
+        <label>Informe o ramo da empresa *</label>
+        <input type="text" id="plOtherCategory" placeholder="Ex: Clínica odontológica, Restaurante, Papelaria">
+      </div>
       <div class="field">
         <label>Nome do responsável *</label>
         <input type="text" id="plResponsible" placeholder="Ex: João Pereira" required>
@@ -2082,11 +2086,23 @@ document.getElementById('submitPublicMember').addEventListener('click', async ()
 });
 
 /* ===== CADASTRO E ACESSO DE PARCEIROS ===== */
+const partnerCategorySelect = document.getElementById('plCategory');
+const partnerOtherCategoryField = document.getElementById('plOtherCategoryField');
+const partnerOtherCategoryInput = document.getElementById('plOtherCategory');
+partnerCategorySelect.addEventListener('change', ()=>{
+  const isOther = partnerCategorySelect.value === 'Outros';
+  partnerOtherCategoryField.style.display = isOther ? 'block' : 'none';
+  partnerOtherCategoryInput.required = isOther;
+  if(!isOther) partnerOtherCategoryInput.value = '';
+});
+
 document.getElementById('submitPublicLead').addEventListener('click', async ()=>{
   const cnpj = document.getElementById('plCnpj').value.trim();
   const razaoSocial = document.getElementById('plRazaoSocial').value.trim();
   const nomeFantasia = document.getElementById('plNomeFantasia').value.trim();
-  const category = document.getElementById('plCategory').value;
+  const selectedCategory = partnerCategorySelect.value;
+  const customCategory = partnerOtherCategoryInput.value.trim();
+  const category = selectedCategory === 'Outros' ? customCategory : selectedCategory;
   const responsible = document.getElementById('plResponsible').value.trim();
   const business = document.getElementById('plBusiness').value.trim();
   const logradouro = document.getElementById('plLogradouro').value.trim();
@@ -2103,7 +2119,9 @@ document.getElementById('submitPublicLead').addEventListener('click', async ()=>
 
   if(!cnpj || !razaoSocial || !nomeFantasia || !category || !responsible || !business ||
      !logradouro || !bairro || !localidade || !uf || !cep || !phone || !email){
-    alert('Preencha todos os campos obrigatórios (marcados com *).');
+    alert(selectedCategory === 'Outros'
+      ? 'Informe o ramo da empresa para continuar.'
+      : 'Preencha todos os campos obrigatórios (marcados com *).');
     return;
   }
   const passwordError = validatePassword(password, passwordConfirm);
