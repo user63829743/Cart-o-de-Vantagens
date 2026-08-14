@@ -408,6 +408,14 @@
   .home-footer-meta{display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:7px; margin-top:5px; color:#7185a7;}
   .home-footer-meta a{color:#a8bddf; text-decoration:none; transition:color .18s ease;}
   .home-footer-meta a:hover{color:#f7bf43;}
+  .privacy-content{text-align:left; color:#dce7f8; line-height:1.6; font-size:14px;}
+  .privacy-content h2{font-family:'Fraunces', serif; color:#f7bf43; font-size:20px; margin:24px 0 12px;}
+  .privacy-content p{margin-bottom:16px;}
+  .privacy-content table{width:100%; border-collapse:collapse; margin:16px 0; background:rgba(255,255,255,0.03); border-radius:8px; overflow:hidden;}
+  .privacy-content th, .privacy-content td{padding:12px; border:1px solid rgba(169,190,222,.1); text-align:left;}
+  .privacy-content th{background:rgba(255,255,255,0.05); color:#f7bf43;}
+  .privacy-content ul{margin:0 0 16px 20px;}
+  .privacy-content li{margin-bottom:8px;}
   @media(max-width:560px){.home-footer{padding:16px 0 6px;font-size:10px;}.home-footer-meta{gap:5px;}}
   @media (max-width:1150px){
     .public-home{padding-left:36px; padding-right:36px;}
@@ -772,8 +780,40 @@
   </div>
   <footer class="home-footer" aria-label="Informações institucionais">
     <div class="home-footer-copy">© 2026 EG News · 04.058.259/0001-44 · Todos os direitos reservados.</div>
-    <div class="home-footer-meta"><span>Privacidade</span><span>·</span><span>Termos</span><span>·</span><a href="mailto:tvegnews@egnews.com.br">E-mail: tvegnews@egnews.com.br</a></div>
+    <div class="home-footer-meta"><a href="#privacidade">Privacidade</a><span>·</span><span>Termos</span><span>·</span><a href="mailto:tvegnews@egnews.com.br">E-mail: tvegnews@egnews.com.br</a></div>
   </footer>
+</div>
+
+<div class="public-page" id="privacyPage">
+  <div class="public-shell">
+    <div class="public-card" style="max-width:800px;">
+      <div class="public-brand"><div class="eg">eg</div><small>Grupo EG News</small></div>
+      <h1 style="font-family:'Fraunces', serif; font-size:28px; margin:24px 0 8px;">Política de Privacidade</h1>
+      <p class="public-sub" style="margin-bottom:32px;">Clube de Vantagens EG News</p>
+      <div class="privacy-content">
+        <p>Esta Política de Privacidade descreve como o <b>Clube de Vantagens EG News</b>, operado pela <b>EG News</b> (CNPJ 04.058.259/0001-44), coleta, utiliza e protege as informações dos seus usuários (sócios e parceiros). Ao utilizar nossa plataforma, você concorda com as práticas descritas neste documento, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).</p>
+        <h2>1. Coleta de Dados</h2>
+        <p>Coletamos informações necessárias para a prestação dos nossos serviços e para garantir a segurança da sua conta:</p>
+        <table><thead><tr><th>Tipo de Usuário</th><th>Dados Coletados</th></tr></thead><tbody>
+          <tr><td><b>Sócio</b></td><td>Nome completo, CPF, RG, data de nascimento, telefone/WhatsApp, endereço completo, e-mail e senha.</td></tr>
+          <tr><td><b>Parceiro</b></td><td>CNPJ, Razão Social, Nome Fantasia, ramo de atividade, nome do responsável, telefone, endereço comercial, e-mail e senha.</td></tr>
+        </tbody></table>
+        <h2>2. Finalidade do Tratamento</h2>
+        <p>Os dados coletados são utilizados exclusivamente para gestão do cadastro, identificação do usuário, emissão e validação do cartão virtual, divulgação de benefícios, comunicação institucional, suporte técnico e análise de parcerias comerciais.</p>
+        <h2>3. Armazenamento e Segurança</h2>
+        <p>Seus dados são armazenados em infraestrutura de nuvem segura (Supabase), utilizando criptografia para senhas e protocolos de comunicação protegidos (HTTPS). Implementamos medidas técnicas para prevenir acessos não autorizados, perda ou alteração de dados.</p>
+        <h2>4. Compartilhamento de Dados</h2>
+        <p>O Clube de Vantagens <b>não comercializa</b> seus dados pessoais. O compartilhamento ocorre apenas quando necessário para exibir o nome fantasia e os benefícios de parceiros ativos aos sócios logados ou para cumprir obrigação legal.</p>
+        <h2>5. Seus Direitos (LGPD)</h2>
+        <p>Como titular dos dados, você pode confirmar a existência de tratamento, acessar, corrigir ou solicitar a exclusão de seus dados, além de revogar o consentimento, observadas as obrigações legais e os efeitos do encerramento da conta.</p>
+        <h2>6. Cookies</h2>
+        <p>Utilizamos cookies essenciais apenas para manter sua sessão ativa e garantir o funcionamento técnico da plataforma.</p>
+        <h2>7. Contato</h2>
+        <p>Para dúvidas sobre esta política ou para exercer seus direitos, entre em contato pelo e-mail <b>tvegnews@egnews.com.br</b>.</p>
+      </div>
+      <div class="modal-actions" style="margin-top:40px;"><a href="#home" class="btn-primary" style="flex:1; text-decoration:none; display:grid; place-items:center;">Voltar para o início</a></div>
+    </div>
+  </div>
 </div>
 
 <div id="adminRoot">
@@ -1897,6 +1937,7 @@ function hideAllPages(){
   partnerHomePage.classList.remove('active');
   userLoginPage.classList.remove('active');
   emailVerifiedPage.classList.remove('active');
+  privacyPage.classList.remove('active');
 }
 
 async function routeByHash(){
@@ -1914,6 +1955,9 @@ async function routeByHash(){
     publicMemberPage.classList.add('active');
   }else if(hash === '#seja-parceiro'){
     publicPartnerPage.classList.add('active');
+  }else if(hash === '#privacidade'){
+    privacyPage.classList.add('active');
+    window.scrollTo(0,0);
   }else if(hash === '#entrar-socio' || hash === '#entrar-parceiro'){
     loginMode = hash === '#entrar-parceiro' ? 'partner' : 'member';
     configureUserLogin();
