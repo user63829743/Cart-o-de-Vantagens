@@ -2008,10 +2008,10 @@ document.getElementById('gateSubmit').addEventListener('click', async ()=>{
     await adminApi('login', { password });
     adminUnlocked = true;
     sessionStorage.setItem('club_admin_session', 'active');
-    location.hash = '#admin';
     document.getElementById('gateError').classList.remove('show');
-    window.location.reload();
     document.getElementById('gatePassword').value = '';
+    window.location.assign(`${window.location.pathname}#admin`);
+    return;
   }catch(e){
     console.error('Erro de login administrativo', e);
     document.getElementById('gateError').textContent = e.message || 'Senha incorreta. Tente novamente.';
