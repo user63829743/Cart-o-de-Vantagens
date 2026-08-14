@@ -2010,7 +2010,10 @@ document.getElementById('gateSubmit').addEventListener('click', async ()=>{
     sessionStorage.setItem('club_admin_session', 'active');
     document.getElementById('gateError').classList.remove('show');
     document.getElementById('gatePassword').value = '';
-    window.location.assign(`${window.location.pathname}#admin`);
+    const refreshUrl = new URL(window.location.href);
+    refreshUrl.searchParams.set('admin_refresh', Date.now().toString());
+    refreshUrl.hash = 'admin';
+    window.location.assign(refreshUrl.toString());
     return;
   }catch(e){
     console.error('Erro de login administrativo', e);
